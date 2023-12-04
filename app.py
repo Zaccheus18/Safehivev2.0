@@ -10,15 +10,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import uvicorn
 
-gpus = tf.config.experimental.list_physical_devices('GPU')
-if gpus:
-    try:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-    except RuntimeError as e:
-        print(e)
-
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware, 
@@ -91,7 +82,7 @@ def frequency_status(prediction_count, threshold):
 
     return crowd_status, crowd_freq
 
-@app.post('/predict')  # Ensure that your backend endpoint is configured for POST requests
+@app.get('/predict')  # Ensure that your backend endpoint is configured for POST requests
 async def predict_crowd_density(file: UploadFile = File(...), threshold: int = Form(...)):
     file_path = os.path.join(UPLOAD_DIRECTORY, 'temp.jpg')
     with open(file_path, 'wb') as buffer:
@@ -121,7 +112,7 @@ async def predict_crowd_density(file: UploadFile = File(...), threshold: int = F
     return response
 
 
-@app.get('/uploads/{filename}')
+@app.post('/uploads/{filename}')
 async def uploaded_file(filename):
     return FileResponse(os.path.join(UPLOAD_DIRECTORY, filename))
 
