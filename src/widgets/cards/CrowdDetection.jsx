@@ -21,7 +21,7 @@ const CrowdDetection = () => {
     formData.append('threshold', threshold);
 
     try {
-      const response = await axios.post('http://localhost:8000/predict', formData, {
+      const response = await axios.post('https://safehive-backend.onrender.com/predict', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setResult(response.data);
@@ -48,7 +48,7 @@ const CrowdDetection = () => {
           <p>Estimated Count: {result.estimatedCount}</p>
           <p>Crowd Status: {result.crowdStatus}</p>
           <p>Crowd Density Frequency: {result.crowdDensityFrequency}</p>
-          <img src={`http://localhost:8000${result.crowdDensity}`} alt="Crowd Density" />
+          <img src={`https://safehive-backend.onrender.com${result.crowdDensity}`} alt="Crowd Density" />
         </div>
       )}
     </div>
