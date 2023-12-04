@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Slant Dividers */
+.slant-divider,
+.slant-divider1 {
+  position: relative;
+  width: 100%;
+  height: 0;
+  border-left: 600px solid transparent; /* Adjust the size of the arrow */
+  border-right: 600px solid transparent; /* Adjust the size of the arrow */
+}
+
+.slant-divider {
+  border-top: 100px solid #F7F8FA; /* Adjust the size and color of the arrow */
+}
+
+.slant-divider1 {
+  border-top: 100px solid #DFDBDB; /* Adjust the size and color of the arrow */
+}
+
+/* Backgrounds */
+.Background1,
+.Background2,
+.Background3,
+.Background4 {
+  background-size: cover;
+  background-position: center;
+}
+
+.Background1 {
+  background-image: url("/img/1.png");
+}
+
+.Background2 {
+  background-image: url("/img/2.png");
+}
+
+.Background3,
+.Background4 {
+  background-attachment: fixed; /* Add this property to make it fixed */
+}
+
+.Background3 {
+  background-image: url("/img/3.png");
+}
+
+.Background4 {
+  background-image: url("/img/4.png");
+}
+/* tailwind.css or your custom styles */
+
+.section {
+  height: 90vh; /* Adjust the height as needed */
+}
+
+.divider {
+  height: 20px; /* Adjust the height of the divider */
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* In your CSS or Tailwind config */
+.bg-custom-blue {
+  position: relative;
+  background-color: #0073f5; /* Your desired color */
+  overflow: hidden; /* Ensures the gradient doesn't overflow the container */
+}
+
+.bg-custom-blue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%; /* Double the width to ensure the gradient covers the whole container */
+  height: 100%;
+  background: linear-gradient(135deg, transparent 50%, #ffffff 0); /* Adjust the gradient and positioning as needed */
+  transform: rotate(-45deg); /* Rotates the gradient to create the slant effect */
+
+}
+
+/* styles.css */
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .text-3xl {
+    font-size: 2.5rem;
+  }
+  .md\:w-full {
+    width: 100%;
+  }
+  /* ... other responsive styles ... */
+}
+
+/* For larger screens */
+@media (min-width: 769px) {
+  .text-3xl {
+    font-size: 4rem;
+  }
+  .md\:w-full {
+    width: 50%;
+  }
+  /* ... other responsive styles ... */
+}
+
