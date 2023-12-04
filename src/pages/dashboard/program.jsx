@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import DragDropFile from "@/widgets/cards/draganddrop";
 
 export function Program() {
@@ -15,32 +16,27 @@ export function Program() {
 
   const handleThresholdSubmit = async (newThreshold) => {
     setThreshold(newThreshold);
-
+  
     const formData = new FormData();
     formData.append("file", file);
     formData.append("threshold", newThreshold);
-
+  
     try {
-      const response = await fetch("https://safehive-backend.onrender.com/predict", {
-        method: "POST",
-        body: formData,
-
-      });
-
-      if (response.ok) {
-        const result = await response.json();
+      const response = await axios.post("https://safehive-backend.onrender.com/predict", formData);
+  
+      if (response.status === 200) {
+        const result = response.data;
         setEstimatedCount(result.estimatedCount);
         setCrowdStatus(result.crowdStatus);
         setCrowdDensityFrequency(result.crowdDensityFrequency);
         setCrowdDensity(result.crowdDensity);
       } else {
-        console.error("Server error:", response.status, response.statusText);
+        console.error("Server error:", response.statusText);
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
   return (
     <div>
       <DragDropFile

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import PropTypes from "prop-types";
 import { Typography, Input, Button, Card, CardHeader, CardBody } from "@material-tailwind/react";
 import { CameraIcon } from "@heroicons/react/24/outline";
@@ -69,13 +70,10 @@ const DragDropFile = ({
       formData.append("file", file);
       formData.append("threshold", threshold);
 
-      const response = await fetch("https://safehive-backend.onrender.com/predict", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await axios.post("https://safehive-backend.onrender.com/predict", formData);
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
         const { estimatedCount, crowdStatus, crowdDensityFrequency, crowdDensity } = data;
 
         setHeatmapUrl(crowdDensity);
