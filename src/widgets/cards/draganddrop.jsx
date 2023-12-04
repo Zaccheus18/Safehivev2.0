@@ -60,7 +60,7 @@ const DragDropFile = ({
     onSubmit(newThreshold);
   };
 
-  const handleSubmit = async (event) => {
+ const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
