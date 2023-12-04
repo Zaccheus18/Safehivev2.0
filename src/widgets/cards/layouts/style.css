@@ -1,0 +1,132 @@
+/* Styles for Low (Green) */
+.hazard-border-green {
+  position: relative;
+  border: 10px solid green;
+  border-radius: 5px;
+
+  animation: blink-green 5s infinite ease-in-out;
+  background-image: repeating-linear-gradient(135deg, green 0px, green 30px, transparent 30px, transparent 50px, green 50px, green 80px, transparent 80px, transparent 100px);
+  padding: 12px;
+  z-index: 1; /* Ensure the pseudo-element is above other content */
+}
+
+@keyframes blink-green {
+  0%, 50%, 100% {
+    border-color: rgb(255, 255, 255);
+  }
+  25%, 75% {
+    border-color: transparent;
+  }
+}
+
+.hazard-border-green::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  border-radius: 5px;
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+
+/* Styles for Medium (Yellow) */
+.hazard-border-yellow {
+  position: relative;
+  border: 10px solid yellow;
+  border-radius: 5px;
+ 
+  animation: blink-yellow 5s infinite ease-in-out;
+  background-image: repeating-linear-gradient(135deg, yellow 0px, yellow 30px, transparent 30px, transparent 50px, yellow 50px, yellow 80px, transparent 80px, transparent 100px);
+  padding: 12px;
+  z-index: 1; /* Ensure the pseudo-element is above other content */
+}
+
+@keyframes blink-yellow {
+  0%, 50%, 100% {
+    border-color: rgb(255, 255, 255);
+  }
+  25%, 75% {
+    border-color: transparent;
+  }
+}
+
+.hazard-border-yellow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  border-radius: 5px;
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+
+/* Styles for High (Red) */
+.hazard-border-red {
+  position: relative;
+  border: 10px solid red;
+  border-radius: 5px;
+
+  animation: blink-red 5s infinite ease-in-out;
+  background-image: repeating-linear-gradient(135deg, red 0px, red 30px, transparent 30px, transparent 50px, red 50px, red 80px, transparent 80px, transparent 100px);
+  padding: 20px;
+  z-index: 1; /* Ensure the pseudo-element is above other content */
+}
+
+@keyframes blink-red {
+  0%, 50%, 100% {
+    border-color: rgb(255, 255, 255);
+  }
+  25%, 75% {
+    border-color: transparent;
+  }
+}
+
+.hazard-border-red::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  border-radius: 5px;
+  z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+
+
+/* In your CSS file */
+/* In your CSS file */
+@keyframes blinkShadowLow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 0, 0); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 0, 0.7); }
+}
+
+@keyframes blinkShadowMedium {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 0, 0); }
+  50% { box-shadow: 0 0 20px rgba(255, 255, 0, 0.7); }
+}
+
+@keyframes blinkShadowHigh {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0); }
+  50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); }
+}
+
+
+.blink-green {
+  animation: blink 3s linear infinite;
+  border: 2px solid rgba(0, 255, 0, 0.5); /* Adjust border color and width */
+}
+
+.blink-yellow {
+  animation: blink 3s linear infinite;
+  border: 2px solid rgba(255, 255, 0, 0.5); /* Adjust border color and width */
+}
+
+.blink-red {
+  animation: blink 3s linear infinite;
+  border: 2px solid rgba(255, 0, 0, 0.5); /* Adjust border color and width */
+}
