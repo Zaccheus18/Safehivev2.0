@@ -1,3 +1,4 @@
+aiofiles
 Pillow==8.4.0
 numpy>=1.23.5,<2.0.0
 matplotlib==3.5.0

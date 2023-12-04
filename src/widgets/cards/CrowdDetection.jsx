@@ -5,6 +5,7 @@ const CrowdDetection = () => {
   const [file, setFile] = useState(null);
   const [threshold, setThreshold] = useState(0);
   const [result, setResult] = useState(null);
+  const [processing, setProcessing] = useState(false);
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
@@ -20,6 +21,8 @@ const CrowdDetection = () => {
     formData.append('file', file);
     formData.append('threshold', threshold);
 
+    setProcessing(true); // Start processing
+
     try {
       const response = await axios.post('https://safehive-backend.onrender.com/predict', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -27,7 +30,16 @@ const CrowdDetection = () => {
       setResult(response.data);
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setProcessing(false); // Stop processing after completion
     }
+  };
+
+  const handleTryAgain = () => {
+    // Reset state to allow user to try again
+    setFile(null);
+    setThreshold(0);
+    setResult(null);
   };
 
   return (
@@ -40,7 +52,7 @@ const CrowdDetection = () => {
         <input type="number" value={threshold} onChange={handleThresholdChange} />
       </label>
       <br />
-      <button onClick={handleSubmit}>Process Image</button>
+      {!result && !processing && <button onClick={handleSubmit}>Process Image</button>}
 
       {result && (
         <div>
@@ -49,6 +61,8 @@ const CrowdDetection = () => {
           <p>Crowd Status: {result.crowdStatus}</p>
           <p>Crowd Density Frequency: {result.crowdDensityFrequency}</p>
           <img src={`https://safehive-backend.onrender.com${result.crowdDensity}`} alt="Crowd Density" />
+          <br />
+          <button onClick={handleTryAgain}>Try Again</button>
         </div>
       )}
     </div>
