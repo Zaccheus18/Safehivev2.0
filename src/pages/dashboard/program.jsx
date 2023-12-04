@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import axios from 'axios';
-import DragDropFile from "@/widgets/cards/draganddrop";
+import CrowdDetection from '@/widgets/cards/CrowdDetection'; // Import the CrowdDetection component
 
 export function Program() {
   const [file, setFile] = useState(null);
-  const [threshold, setThreshold] = useState("");
-  const [estimatedCount, setEstimatedCount] = useState("");
-  const [crowdStatus, setCrowdStatus] = useState("");
-  const [crowdDensityFrequency, setCrowdDensityFrequency] = useState("");
-  const [crowdDensity, setCrowdDensity] = useState("");
+  const [threshold, setThreshold] = useState(0);
+  const [result, setResult] = useState(null);
 
   const handleFileChange = (selectedFile) => {
     setFile(selectedFile);
@@ -16,38 +13,35 @@ export function Program() {
 
   const handleThresholdSubmit = async (newThreshold) => {
     setThreshold(newThreshold);
-  
+
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("threshold", newThreshold);
-  
+    formData.append('file', file);
+    formData.append('threshold', newThreshold);
+
     try {
-      const response = await axios.post("https://safehive-backend.onrender.com/predict", formData);
-  
+      const response = await axios.post('http://localhost:8000/predict', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
       if (response.status === 200) {
         const result = response.data;
-        setEstimatedCount(result.estimatedCount);
-        setCrowdStatus(result.crowdStatus);
-        setCrowdDensityFrequency(result.crowdDensityFrequency);
-        setCrowdDensity(result.crowdDensity);
+        setResult(result);
       } else {
-        console.error("Server error:", response.statusText);
+        console.error('Server error:', response.statusText);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
+
   return (
     <div>
-      <DragDropFile
-        onChange={handleFileChange}
-        onSubmit={handleThresholdSubmit}
-        threshold={threshold}
+      <CrowdDetection // Render CrowdDetection component with the relevant props
         file={file}
-        estimatedCount={estimatedCount}
-        crowdStatus={crowdStatus}
-        crowdDensityFrequency={crowdDensityFrequency}
-        crowdDensity={crowdDensity}
+        threshold={threshold}
+        result={result}
+        onFileChange={handleFileChange}
+        onThresholdSubmit={handleThresholdSubmit}
       />
     </div>
   );
