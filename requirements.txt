@@ -7,3 +7,4 @@ tensorflow
 protobuf
 python-multipart
 tensorflow-gpu
+pip==23.3.1
