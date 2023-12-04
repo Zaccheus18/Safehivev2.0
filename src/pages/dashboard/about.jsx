@@ -6,7 +6,7 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import './public/css/tailwind.css';
+import '../public/css/tailwind.css';
 
 const members = [
   {
