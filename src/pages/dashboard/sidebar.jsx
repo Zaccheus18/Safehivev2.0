@@ -43,7 +43,7 @@ export function NavigationBar() {
         <Avatar
           color="lightBlue"
           size="lg"
-          src="/img/logo.png" // Insert your logo image source here
+          src="/img/Logo.png" 
           alt="Logo"
           className="cursor-pointer w-100 mr-5"
         />

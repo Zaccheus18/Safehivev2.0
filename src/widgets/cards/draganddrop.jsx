@@ -69,15 +69,14 @@ const DragDropFile = ({
       formData.append("file", file);
       formData.append("threshold", threshold);
 
-      const response = await fetch("http://127.0.0.1:8000/predict", {
+      const response = await fetch("https://safehive-backend.onrender.com/predict", {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         const data = await response.json();
-        const { crowdStatus, crowdDensityFrequency, crowdDensity } = data;
-        const estimatedCount = parseInt('10');
+        const { estimatedCount, crowdStatus, crowdDensityFrequency, crowdDensity } = data;
 
         setHeatmapUrl(crowdDensity);
         onSubmit(threshold, estimatedCount, crowdStatus, crowdDensityFrequency);
