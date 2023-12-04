@@ -3,11 +3,21 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm as c
+import tensorflow as tf  # Added TensorFlow import
 from keras.models import model_from_json
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import uvicorn
+
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
+
 
 app = FastAPI()
 app.add_middleware(
