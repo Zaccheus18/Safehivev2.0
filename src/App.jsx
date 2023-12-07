@@ -11,33 +11,28 @@ const App = () => {
       <Favicon url={faviconUrl} />
 
       <div className="w-full text-black">
-        <div className="flex flex-col min-h-screen">
+        <NavigationBar />
 
-          <NavigationBar />
+        <section id="home" className="section bg-custom-blue text-white md:px-8">
+          <Home />
+        </section>
 
-          <section id="home" className="section bg-custom-blue text-white">
-            <Home />
-          </section>
+        <section id="services" className="section1">
+          <Program />
+        </section>
 
-          <section id="services" className="section">
-            <Program />
-          </section>
+        <section id="about" className="section2 bg-custom-blue text-white md:px-8">
+          <About />
+        </section>
 
-          <section id="about" className="section bg-custom-blue text-white">
-            <About />
-          </section>
+        <section id="contact" className="section3">
+          <Contact />
+        </section>
 
-          <section id="contact" className="section">
-            <Contact />
-          </section>
-
-          <section className="section bg-custom-blue text-white">
-            <Footer />
-          </section>
-
-        </div>
+        <section className="section4 bg-custom-blue text-white">
+          <Footer />
+        </section>
       </div>
-
     </div>
   );
 };

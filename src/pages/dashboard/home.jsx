@@ -25,7 +25,7 @@ export function Home() {
                   SAFEHIVE
                 </Typography>
                 <Typography className="text-base font-light mt-5 font-light">
-                  SafeHive enables event organizers to gain valuable insights into crowd dynamics, empowering them to implement proactive crowd control measures.
+                SafeHive is an innovative solution designed to enhance crowd management strategies and ensure public safety at events. At its core is the Congested Scene Recognition Network (CSRNet), which accurately estimates crowd counts and generates high-quality density maps, even in densely populated areas. SafeHive provides valuable insights into crowd movement and distribution for event organizers and security personnel.
                 </Typography>
                 <div className="mt-5">
                   <Button

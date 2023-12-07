@@ -35,8 +35,8 @@ const PromptMessage = ({ crowdDensityFrequency, showPrompt, setShowPrompt }) => 
   return (
     <div>
       {showPrompt && (
-        <div className={`relative text-center p-4 rounded-lg ${blinkingClass} ${crowdDensityFrequency.toLowerCase() === 'Low' ? 'bg-white' : crowdDensityFrequency.toLowerCase() === 'Medium' ? 'bg-white' : 'bg-white'}`} style={{ animation: `blinkShadow${crowdDensityFrequency} 1s linear infinite` }}>
-          <button className="absolute top-0 right-0 text-xs font-bold" style={{ transform: "translate(50%, -50%)" }} onClick={() => setShowPrompt(false)}>X</button>
+        <div className={`relative text-center p-4 rounded-lg ${blinkingClass} bg-white`} style={{ animation: `blinkShadow${crowdDensityFrequency} 1s linear infinite` }}>
+          <button className="absolute top-0 right-0 text-xs font-bold" style={{ transform: "translate(50%, -50%)" }} onClick={handleClose}>X</button>
           <p className="text-black py-1 px-4 rounded-lg">{message}</p>
         </div>
       )}

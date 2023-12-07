@@ -49,14 +49,14 @@ export function NavigationBar() {
         />
 
 
-        <Typography variant="h5" color="black" className="font-semibold font-sans lg:hidden">
+        <Typography variant="h6" color="black" className="font-semibold font-sans lg:hidden">
           {currentTime}
         </Typography>
       </div>
 
       <ul className="flex lg:flex-row lg:items-center lg:gap-2 lg:mr-auto">
       <li>
-        <a href="#home" onClick={(e) => scrollToSection(e, "home")} className="mb-2 lg:mb-0 ml-10 font-semibold text-md hover:underline">
+        <a href="#home" onClick={(e) => scrollToSection(e, "home")} className="mb-2 lg:mb-0 ml-3 font-semibold text-md hover:underline">
           Home
         </a>
       </li>

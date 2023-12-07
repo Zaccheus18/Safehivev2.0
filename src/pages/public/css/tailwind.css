@@ -51,9 +51,85 @@
 }
 /* tailwind.css or your custom styles */
 
-.section {
-  height: 90vh; /* Adjust the height as needed */
+
+/* For smaller screens */
+@media (max-width: 499px) {
+  .section{
+    height: 82vh; /* Adjusted height for larger screens */
+  }
+  .section1{
+    height: 210vh; /* Adjusted height for larger screens */
+  }
+  .section2{
+    height: 285vh; /* Adjusted height for larger screens */
+  }
+  .section3 {
+    height: 95vh; /* Adjusted height for smaller screens */
+  }
+  .section4 {
+    height: 65vh; /* Adjusted height for smaller screens */
+  }
+  .hide {
+    display: none;
+  }
+  .size-img {
+    width: 100%; /* Set the width */
+    height: 100%; /* Set the height */
+  }
 }
+
+/* For Mid screens */
+@media (min-width: 500px) and (max-width: 768px){
+  .section{
+    height: 112vh; /* Adjusted height for larger screens */
+  }
+  .section1{
+    height: 170vh; /* Adjusted height for larger screens */
+  }
+  .section2{
+    height: 200vh; /* Adjusted height for larger screens */
+  }
+  .section3 {
+    height: 90vh; /* Adjusted height for smaller screens */
+  }
+  .section4 {
+    height: 63vh; /* Adjusted height for smaller screens */
+  }
+  .hide {
+    display: none;
+  }
+  .size-img {
+    width: 100%; /* Set the width */
+    height: 100%; /* Set the height */
+  }
+}
+
+/* For larger screens */
+@media (min-width: 1024px) {
+  .section {
+    height: 77vh; /* Adjusted height for larger screens */
+  }
+  .section1{
+    height: 93vh; /* Adjusted height for larger screens */
+  }
+  .section2{
+    height: 130vh; /* Adjusted height for larger screens */
+  }
+  .section3 {
+    height: 80vh; /* Adjusted height for larger screens */
+  }
+  .section4 {
+    height: 35vh; /* Adjusted height for larger screens */
+  }
+  .custom-md-ml {
+    margin-left: 260px;
+  }
+  .size-img {
+    width: 70%; /* Set the width */
+    height: 70%; /* Set the height */
+  }
+}
+
 
 .divider {
   height: 20px; /* Adjust the height of the divider */
@@ -91,7 +167,7 @@
   .md\:w-full {
     width: 100%;
   }
-  /* ... other responsive styles ... */
+
 }
 
 /* For larger screens */
@@ -103,5 +179,39 @@
     width: 50%;
   }
   /* ... other responsive styles ... */
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  .flex-items {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 5px; /* Adjust margin as needed */
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .w-2-3 {
+    width: 100%; /* Adjust width as needed */
+  }
+
+  .w-1-3 {
+    width: 100%; /* Adjust width as needed */
+  }
+  .grid {
+    display: block; /* Change grid to block for mobile */
+  }
+
+  .grid > * {
+    width: 100%; /* Ensure items occupy full width */
+    margin-bottom: 10px; /* Adjust spacing between items */
+  }
+  .grid img {
+    max-width: 100%; /* Ensure images don't overflow their containers */
+    height: auto; /* Maintain aspect ratio */
+  }
 }
 
