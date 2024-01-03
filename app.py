@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm as c
-import tensorflow as tf  # Added TensorFlow import
+import tensorflow as tf
 from keras.models import model_from_json
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,15 +12,18 @@ import uvicorn
 
 app = FastAPI()
 app.add_middleware(
-    CORSMiddleware, 
-    allow_origins=["*"], 
-    allow_credentials=True, 
-    allow_methods=["*"], 
-    allow_headers=["*"], 
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-
 UPLOAD_DIRECTORY = os.path.join(os.path.dirname(__file__), 'uploads')
+
+def get_image_size(file_path):
+    with Image.open(file_path) as img:
+        return img.size  # Returns width and height of the uploaded image
 
 def load_model():
     json_file = open('Model.json', 'r')
@@ -30,8 +33,9 @@ def load_model():
     loaded_model.load_weights("weights/model_A_weights.h5")
     return loaded_model
 
-def create_img(path):
+def create_img(path, target_size):
     im = Image.open(path).convert('RGB')
+    im = im.resize(target_size)  # Resize the image
     im = np.array(im)
     im = im / 255.0
     im[:, :, 0] = (im[:, :, 0] - 0.485) / 0.229
@@ -40,9 +44,9 @@ def create_img(path):
     im = np.expand_dims(im, axis=0)
     return im
 
-def predict(path):
+def predict(path, target_size):
     model = load_model()
-    image = create_img(path)
+    image = create_img(path, target_size)  # Pass the target_size to create_img function
     ans = model.predict(image)
     count = np.sum(ans)
     return count, image, ans
@@ -82,21 +86,22 @@ def frequency_status(prediction_count, threshold):
 
     return crowd_status, crowd_freq
 
-@app.post('/predict')  # Ensure that your backend endpoint is configured for POST requests
+
+@app.post('/predict')
 async def predict_crowd_density(file: UploadFile = File(...), threshold: int = Form(...)):
     file_path = os.path.join(UPLOAD_DIRECTORY, 'temp.jpg')
     with open(file_path, 'wb') as buffer:
-        # Read and write the uploaded file content to a local file
         content = await file.read()
         buffer.write(content)
 
-    count, img, hmap = predict(file_path)
+    uploaded_image_size = get_image_size(file_path)  # Get uploaded image size
+    target_image_size = uploaded_image_size  # Set target size to uploaded image size
 
+    count, img, hmap = predict(file_path, target_image_size)  # Pass target_image_size to predict function
     est_count = count
     crowd_status, crowd_freq = frequency_status(count, threshold)
 
-    # Your logic for heatmap generation
-    plt.imshow(hmap.reshape(hmap.shape[1], hmap.shape[2]), cmap='jet')  # Update the colormap if needed
+    plt.imshow(hmap.reshape(hmap.shape[1], hmap.shape[2]), cmap='jet')
     plt.axis('off')
     heatmap_path = os.path.join(UPLOAD_DIRECTORY, 'cd_heatmap.png')
     plt.savefig(heatmap_path, bbox_inches='tight', pad_inches=0)
@@ -106,11 +111,10 @@ async def predict_crowd_density(file: UploadFile = File(...), threshold: int = F
         'estimatedCount': int(est_count),
         'crowdStatus': crowd_status,
         'crowdDensityFrequency': crowd_freq,
-        'crowdDensity': f"/uploads/cd_heatmap.png"  # Update the path as needed
+        'crowdDensity': f"/uploads/cd_heatmap.png"
     }
 
     return response
-
 
 @app.get('/uploads/{filename}')
 async def uploaded_file(filename):
@@ -120,3 +124,5 @@ if __name__ == '__main__':
     if not os.path.exists(UPLOAD_DIRECTORY):
         os.makedirs(UPLOAD_DIRECTORY)
     uvicorn.run(app, host='0.0.0.0', port=8000)
+
+

@@ -1,32 +1,54 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Typography, Input, Button, Card, CardHeader, CardBody } from "@material-tailwind/react";
-import { CameraIcon } from "@heroicons/react/24/outline";
+import { CameraIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import LoadingOverlay from "./layouts/LoadingOverlay.jsx";
 import "./layouts/style.css";
 
-const CrowdDetection = () => {
+const CrowdDetection = ({ onClose }) => {
   const [file, setFile] = useState(null);
   const [threshold, setThreshold] = useState(0);
   const [result, setResult] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showPromptMessage, setShowPromptMessage] = useState(false);
-  const [promptMessage, setPromptMessage] = useState('');
-  const [promptBlinkingClass, setPromptBlinkingClass] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate()
+
+  const popupStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff",
+    zIndex: 9999,
+    justifyContent: "center",
+    alignItems: "center",
+   
+  };
   
+
+  const contentStyle = {
+    maxWidth: "100%",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    position: "relative",
+  };
+
+
   const getBorderStyle = (freq) => {
-    let baseStyle = `mx-2 border-8`;
-  
+    let blinkingClass = '';
+
     if (freq === "Low") {
-      return `${baseStyle} border-green-500 hazard-border-green`;
+      blinkingClass = "blink-green";
     } else if (freq === "Medium") {
-      return `${baseStyle} border-yellow-500 hazard-border-yellow`;
+      blinkingClass = "blink-yellow";
     } else if (freq === "High") {
-      return `${baseStyle} border-red-500 hazard-border-red`;
+      blinkingClass = "blink-red";
     }
-  
-    return ""; 
+
+    return { blinkingClass }; 
   };
 
   const getMessageAndClass = (freq) => {
@@ -104,8 +126,33 @@ const CrowdDetection = () => {
     setError(null);
   };
 
+  const openPopup = () => {
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+  const headerStyle = {
+    fontFamily: 'fraunces',
+  };
+  const paragraphstyle = {
+    fontFamily: 'Poppins',
+  };
+
+
+
   return (
-    <div className={`flex flex-col md:flex-row items-stretch my-5 ${result && getBorderStyle(result.crowdDensityFrequency)}`}>
+    <div style={popupStyle}>
+      <div style={contentStyle}>
+        
+        <div className='bg-custom-blue py-14 w-full'>
+        <div className="flex justify-start">
+        <Button onClick={() => navigate("/")} className='bg-white text-black rounded-full -mt-2 -mb-5 ml-5 z-10'>
+        <ArrowLeftIcon className="h-5 w-5 my-1 -mx-1  "  /> 
+        </Button>
+      </div>
+    <div className="flex flex-col md:flex-row items-stretch my-5 ">
 
       <div className="w-full md:w-2/3 p-5">
       <LoadingOverlay loading={loading} />
@@ -118,7 +165,7 @@ const CrowdDetection = () => {
           >
             <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="fileInput" />
             <CameraIcon className="h-10 w-10 mb-2 text-indigo-500" />
-            <Typography color="indigo">Drag and drop or click to upload</Typography>
+            <Typography style={paragraphstyle} color="indigo"className="text-lg">Drag and drop or click to upload</Typography>
           </div>
           <br />
           <div className='border border-blue-gray-200 p-4 rounded-lg grid grid-cols-2 gap-4 flex items-center'>
@@ -127,12 +174,12 @@ const CrowdDetection = () => {
                 <img src={URL.createObjectURL(file)} alt="Uploaded" className="border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center max-w-150px" />
               </div>
             ):(
-              <p className="border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center">No image preview available</p>
+              <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center">No image preview available</Typography>
             )}
             {result && result.crowdDensity ? (
               <img src={`http://172.172.166.26:8000${result.crowdDensity}`} alt="Crowd Density" className="border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center max-w-150px" />
             ) : (
-              <p className="border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center">No crowd heatmap available</p>
+              <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center">No crowd heatmap available</Typography>
             )}
           </div>
         </Card>
@@ -140,19 +187,19 @@ const CrowdDetection = () => {
 
       <div className="w-full md:w-1/3 p-5">
         
-      <Card className="border-dashed border-2 p-5 mb-5 w-full h-full">
+      <Card style={paragraphstyle} className="border-dashed border-2 p-5 mb-5 w-full h-full">
       {!result && !processing ? (
         <>
-          <label className="text-blue-gray">Set Crowd Limit:</label>
+          <label className="text-lg text-blue-gray">Set Crowd Limit:</label>
           <div className="flex items-center">
             <Input type="number" value={threshold} onChange={handleThresholdChange} />
-            <Button className="mx-2" onClick={handleSubmit}>
+            <Button className="text-xs mx-2 bg-blue-900" onClick={handleSubmit}>
               Submit
             </Button>
           </div>
         </>
       ) : (
-        <Button className="mx-2 text-xs" onClick={handleTryAgain}>
+        <Button className="mx-2 text-xs bg-blue-900" onClick={handleTryAgain}>
           Try Again
         </Button>
       )}
@@ -165,48 +212,98 @@ const CrowdDetection = () => {
       </CardHeader>
       {message && (
           <div className={`relative text-center p-4 mt-10 rounded-lg ${blinkingClass} bg-white`} style={{ animation: `blinkShadow${result.crowdDensityFrequency} 1s linear infinite` }}>
-            <p className="text-black py-1 px-4 rounded-lg">{message}</p>
+            <Typography style={paragraphstyle}  className="text-lg text-black py-1 px-4 rounded-lg">{message}</Typography>
           </div>
         )}
 
         <div className="col-span-1  p-4">
-              <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+              <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
                 Crowd Limit: {threshold}
               </Typography>
-              <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+              <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
                 Crowd Count: {result.estimatedCount}
               </Typography>
-              <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+              <Typography style={{paragraphstyle, animation: `blinkShadow${result.crowdDensityFrequency} 1s linear infinite` }} className={`text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid ${blinkingClass}` } >
                 Crowd Status: {result.crowdStatus}
               </Typography>
-              <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+              <Typography style={{paragraphstyle, animation: `blinkShadow${result.crowdDensityFrequency} 1s linear infinite` }} className={`text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid ${blinkingClass}` } >
                 Crowd Density Frequency: {result.crowdDensityFrequency}
               </Typography>
         </div>
         </>
       ):(
-        <div className="col-span-1  p-4">
-        <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+        <div  className="col-span-1  p-4">
+        <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
           Crowd Limit: 0
         </Typography>
-        <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+        <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
           Crowd Count: 0
         </Typography>
-        <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+        <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid ">
           Crowd Status: 
         </Typography>
-        <Typography className="border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
+        <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 py-4 px-4 mb-2 rounded-lg w-full border-solid">
           Crowd Density Frequency: 
         </Typography>
   </div>
       )}
+     <div className="flex justify-end">
+            <Button onClick={openPopup} 
+             rounded={true} 
+             color="blue" 
+             size="s" 
+             className="mr-1 mt-20 text-md bg-blue-900 text-white rounded-full z-10"
+             >
+              ?
+            </Button>
+    </div>
+
+
  
     </Card>
 
-      </div>
-    
 
+
+    {showPopup && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white w-4/5 h-4/5  m-10  p-8 rounded-lg relative overflow-y-auto">
+          <div className="flex justify-end">
+            <Button onClick={closePopup} color="blue" size="sm" className="-mr-7 -mt-7 bg-blue-900 text-white rounded">
+              X
+            </Button>
+          </div>
+
+            <Typography style={headerStyle} className="text-4xl font-bold mb-4">
+              How does it work?
+            </Typography>
+            <Typography style={paragraphstyle}>
+            On top of SafeHive’s crowd counting and density mapping capabilities, it also presents relevant crowd 
+            features, such as a Crowd Limit, Crowd Status, and Crowd Density Frequency, where this factors serves 
+            as a further guide for crowd management procedures to mitigate potential risks and threats.
+            Crowd Limit is the user input that serves as a threshold for determining a specified limit that a crowd must 
+            follow. Crowd Status is the present assessment of a crowd’s behavior, while Crowd Density Frequency is 
+            the level of density estimation of a crowd. Both Crowd Status and Crowd Density Frequency will be based 
+            on the specified Crowd Limit of a user that aligns with their goal and purpose for an appropriate crowd 
+            management approach. In addition, there will be a corresponding color-coded notification for each level 
+            of Crowd Density Frequency. To know more about these features, here is a visualization on how they 
+            work:
+            </Typography>
+            <img
+              src="img/HomePopUp.png"
+              alt="Image Description"
+              className="h-auto lg:h-auto w-auto mt-12 z-0"
+            />
+          </div>
+        </div>
+        
+      )}
+      </div>
+  
+      </div>
     </div>
+    </div>
+    </div>
+
   );
 };
 

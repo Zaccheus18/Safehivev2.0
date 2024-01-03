@@ -1,101 +1,22 @@
 /* Styles for Low (Green) */
 .hazard-border-green {
-  position: relative;
-  border: 10px solid green;
-  border-radius: 5px;
-
-  animation: blink-green 5s infinite ease-in-out;
-  background-image: repeating-linear-gradient(135deg, green 0px, green 30px, transparent 30px, transparent 50px, green 50px, green 80px, transparent 80px, transparent 100px);
-  padding: 12px;
-  z-index: 1; /* Ensure the pseudo-element is above other content */
-}
-
-@keyframes blink-green {
-  0%, 50%, 100% {
-    border-color: rgb(255, 255, 255);
-  }
-  25%, 75% {
-    border-color: transparent;
-  }
-}
-
-.hazard-border-green::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  border-radius: 5px;
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
+  animation: blink 3s linear infinite;
+  border: 2px solid rgba(0, 255, 0, 0.5); /* Adjust border color and width */
 }
 
 /* Styles for Medium (Yellow) */
 .hazard-border-yellow {
-  position: relative;
-  border: 10px solid yellow;
-  border-radius: 5px;
- 
-  animation: blink-yellow 5s infinite ease-in-out;
-  background-image: repeating-linear-gradient(135deg, yellow 0px, yellow 30px, transparent 30px, transparent 50px, yellow 50px, yellow 80px, transparent 80px, transparent 100px);
-  padding: 12px;
-  z-index: 1; /* Ensure the pseudo-element is above other content */
+  animation: blink 3s linear infinite;
+  border: 2px solid rgba(255, 255, 0, 0.5); /* Adjust border color and width */
 }
 
-@keyframes blink-yellow {
-  0%, 50%, 100% {
-    border-color: rgb(255, 255, 255);
-  }
-  25%, 75% {
-    border-color: transparent;
-  }
-}
-
-.hazard-border-yellow::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  border-radius: 5px;
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
-}
 
 /* Styles for High (Red) */
 .hazard-border-red {
-  position: relative;
-  border: 10px solid red;
-  border-radius: 5px;
-
-  animation: blink-red 5s infinite ease-in-out;
-  background-image: repeating-linear-gradient(135deg, red 0px, red 30px, transparent 30px, transparent 50px, red 50px, red 80px, transparent 80px, transparent 100px);
-  padding: 20px;
-  z-index: 1; /* Ensure the pseudo-element is above other content */
+  animation: blink 3s linear infinite;
+  border: 2px solid rgba(255, 0, 0, 0.5); /* Adjust border color and width */
 }
 
-@keyframes blink-red {
-  0%, 50%, 100% {
-    border-color: rgb(255, 255, 255);
-  }
-  25%, 75% {
-    border-color: transparent;
-  }
-}
-
-.hazard-border-red::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  border-radius: 5px;
-  z-index: -1; /* Ensure the pseudo-element is behind the content */
-}
 
 
 /* In your CSS file */
@@ -129,4 +50,34 @@
 .blink-red {
   animation: blink 3s linear infinite;
   border: 2px solid rgba(255, 0, 0, 0.5); /* Adjust border color and width */
+}
+
+
+
+/* In your CSS */
+.bg-custom-blue {
+  position: relative;
+  background-color: #84bde1; /* Your desired background color */
+  overflow: hidden;
+}
+
+/* Adding the wave SVG for top and bottom */
+.bg-custom-blue::before,
+.bg-custom-blue::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 200px; /* Adjust this value to change the wave's height */
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%23fff" fill-opacity="1" d="M0,160L48,165.3C96,171,192,181,288,170.7C384,160,480,128,576,128C672,128,768,160,864,165.3C960,171,1056,149,1152,138.7C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-custom-blue::before {
+  top: 0;
+  transform: scaleY(-1); /* Flips the gradient vertically for top wave */
+}
+.bg-custom-blue::after {
+  bottom: 0;
 }

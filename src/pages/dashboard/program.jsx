@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import CrowdDetection from '@/widgets/cards/CrowdDetection'; // Import the CrowdDetection component
+import { Button } from "@material-tailwind/react";
 
-export function Program() {
+export function Program({ onClose }) {
   const [file, setFile] = useState(null);
   const [threshold, setThreshold] = useState(0);
   const [result, setResult] = useState(null);
@@ -36,6 +37,7 @@ export function Program() {
 
   return (
     <div>
+   
       <CrowdDetection // Render CrowdDetection component with the relevant props
         file={file}
         threshold={threshold}
@@ -43,6 +45,7 @@ export function Program() {
         onFileChange={handleFileChange}
         onThresholdSubmit={handleThresholdSubmit}
       />
+
     </div>
   );
 }

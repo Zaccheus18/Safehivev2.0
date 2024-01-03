@@ -7,7 +7,12 @@ import {
 } from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
-
+const headerstyle = {
+  fontFamily: 'fraunces',
+};
+const paragraphstyle = {
+  fontFamily: 'Poppins',
+};
 const members = [
   {
     name: "Mathew Adriane Briones",
@@ -38,19 +43,19 @@ const members = [
 
 export function About() {
   return (
-    <div className="my-10 px-4 lg:px-10">
+    <div className="mb-40 mt-20 px-4 lg:px-10">
       <CardBody className="p-6 pb-5 pt-1">
-        <Typography className="text-4xl font-bold mb-5 mt-10 text-center">About Us</Typography>
+        <Typography style={headerstyle} className="text-5xl font-bold mb-5 mt-20 text-center">About Us</Typography>
         <div className="mb-8">
         
         <div className="ml-5 mr-5 mb-8">
-          <Typography className="text-base font-light text-justify mb-4">
+          <Typography style={paragraphstyle} className="text-lg font-light text-justify mb-4">
             At SafeHive, we are dedicated to revolutionizing crowd management and safety through 
             cutting-edge technology and innovative solutions. Our mission is to provide event organizers, 
             security personnel, and medical teams with a powerful deep learning-based crowd analysis system 
             that ensures efficient and effective management of large-scale events.
           </Typography>
-          <Typography className="text-base font-light text-justify mb-4">
+          <Typography style={paragraphstyle} className="text-lg font-light text-justify mb-4">
             Using state-of-the-art technology, particularly the Congested Scene Recognition 
             Network (CSRNet) model, SafeHive offers real-time crowd analysis, accurate crowd 
             counting, and high-quality density map generation.
@@ -58,7 +63,7 @@ export function About() {
         </div>
         </div>
 
-        <Typography className="text-2xl font-bold mb-10 mt-20 text-center">MEET THE TEAM</Typography>
+        <Typography style={headerstyle} className="text-4xl font-bold mb-10 mt-20 text-center">MEET THE TEAM</Typography>
         
         <div className="flex flex-wrap justify-center">
           {members.map((member, index) => (
@@ -72,10 +77,10 @@ export function About() {
                   />
                 </CardHeader>
                 <CardBody>
-                  <Typography className="text-base font-bold mb-1 text-center">
+                  <Typography style={headerstyle} className="text-lg font-bold mb-1 text-center">
                     {member.name}
                   </Typography>
-                  <Typography className="text-sm font-light text-center">
+                  <Typography style={paragraphstyle} className="text-base font-light text-center">
                     {member.position}
                   </Typography>
                 </CardBody>
