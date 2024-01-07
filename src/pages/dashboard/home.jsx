@@ -31,7 +31,10 @@ export function Home() {
                   </Typography>
                   {/* Description */}
                   <Typography style={paragraphStyle} className="text-lg font-light mt-5 font-light">
-                    SafeHive is an innovative solution designed to enhance crowd management strategies and ensure public safety at events. At its core is the Congested Scene Recognition Network (CSRNet), which accurately estimates crowd counts and generates high-quality density maps, even in densely populated areas. SafeHive provides valuable insights into crowd movement and distribution for event organizers and security personnel.
+                    SafeHive is an innovative solution designed to enhance crowd management strategies and ensure public safety at events. 
+                    At its core is the Congested Scene Recognition Network (CSRNet), which accurately estimates crowd counts and generates 
+                    density maps in densely populated areas. SafeHive provides valuable insights into crowd movement and distribution for 
+                    event organizers and security personnel.
                   </Typography>
                   {/* Button to navigate to the CSRNet page */}
                   <div className="mt-5">

@@ -118,7 +118,7 @@ const handleSubmit = async () => {
   try {
     setLoading(true);
 
-    const response = await axios.post('http://172.172.166.26:8000/predict', formData, {
+    const response = await axios.post('http://127.0.0.1:8000/predict', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     setResult(response.data);
@@ -163,11 +163,11 @@ return (
   <div style={popupStyle}>
     <div style={contentStyle}>
       {/* Container with custom blue background */}
-      <div className='bg-custom-blue py-14 w-full -my-11'>
+      <div className='bg-custom-blue py-7 w-full '>
         {/* Button to navigate back */}
         <div className="flex justify-start">
-          <Button onClick={() => navigate("/")} className='bg-white text-black rounded-full -mt-2 -mb-5 ml-5 z-10'>
-            <ArrowLeftIcon className="h-5 w-5 my-1 -mx-1" />
+          <Button onClick={() => navigate("/")} className='bg-white text-black rounded-full mt-3 -mb-7 ml-5 z-10'>
+            <ArrowLeftIcon className="h-5 w-5 my-auto -mx-2" />
           </Button>
         </div>
         <div className="flex flex-col md:flex-row items-stretch my-5 ">
@@ -199,7 +199,7 @@ return (
                 )}
                 {/* Display crowd density heatmap or placeholder */}
                 {result && result.crowdDensity ? (
-                  <img src={`http://172.172.166.26:8000${result.crowdDensity}`} alt="Crowd Density" className="border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center max-w-150px" />
+                  <img src={`http://127.0.0.1:8000${result.crowdDensity}`} alt="Crowd Density" className="border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center max-w-150px" />
                 ) : (
                   <Typography style={paragraphstyle} className="text-lg border border-blue-gray-200 p-4 mb-4 mt-4 rounded-lg w-100 h-64 justify-center flex items-center">No crowd heatmap available</Typography>
                 )}

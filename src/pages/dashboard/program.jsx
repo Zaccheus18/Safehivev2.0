@@ -20,7 +20,7 @@ export function Program({ onClose }) {
     formData.append('threshold', newThreshold);
 
     try {
-      const response = await axios.post('http://172.172.166.26:8000/predict', formData, {
+      const response = await axios.post('http://127.0.0.1:8000/predict', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
