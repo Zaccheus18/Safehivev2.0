@@ -39,15 +39,12 @@ def get_image_size(file_path):
 # -------------------- #
 # Loading the pre-trained model
 def load_model():
-    # Load model architecture from JSON file and weights
     json_file = open('Model.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     loaded_model.load_weights("weights/model_A_weights.h5")
     return loaded_model
-
-
 
 # Function Description #
 
@@ -70,7 +67,7 @@ def create_img(path, target_size):
     im[:, :, 0] = (im[:, :, 0] - 0.485) / 0.229
     im[:, :, 1] = (im[:, :, 1] - 0.456) / 0.224
     im[:, :, 2] = (im[:, :, 2] - 0.406) / 0.225
-    
+    # Add an extra dimension to the array to make it suitable as input to a neural network
     im = np.expand_dims(im, axis=0)
     return im
 
@@ -105,8 +102,11 @@ def predict(path, target_size):
 # If the count belongs to a specific range of crowd threshold value percentages, 
 # then the assigned labels will be its crowd status and density frequency
 def frequency_status(prediction_count, threshold):
+    # Crowd Status and Density Frequency Labels
     status = ['No Crowd', 'Sparse Crowd', 'Medium Dense Crowd', 'Dense Crowd']
     freq = ['Low', 'Medium', 'High']
+    
+    # Initialize the variables as none to put the appropriate labels later on
     crowd_status = None
     crowd_freq = None
 
@@ -115,35 +115,58 @@ def frequency_status(prediction_count, threshold):
     percentage2 = int(threshold * 0.66)
     percentage3 = int(threshold * 1)
 
-    # Determine crowd status and frequency based on count and threshold
-    if threshold == 0 or prediction_count <= percentage1:
+
+# If the count is equals to zero AND the limit is greater than 0 then,
+    # Crowd Status and Density Frequency will be as "No Crowd" and "Low", respectively
+    if ((prediction_count == 0) and (threshold > 0)): 
+        # Color-code: Green
         crowd_status = status[0]
         crowd_freq = freq[0]
-    elif percentage1 < prediction_count <= percentage2:
-        crowd_status = status[1]
-        crowd_freq = freq[0]
-    elif percentage2 < prediction_count <= percentage3:
-        crowd_status = status[2]
-        crowd_freq = freq[1]
     else:
-        crowd_status = status[3]
-        crowd_freq = freq[2]
+        # If the count is in between 100% and 67% of limit OR if count is greater than 100% of count then,
+        # Crowd Status and Density Frequency will be as "Dense Crowd" and "High", respectively
+        if ((percentage2 < prediction_count <= percentage3)) or (prediction_count > percentage3): 
+            # Color-code: Red
+            crowd_status = status[3]
+            crowd_freq = freq[2]
+        # If the count is in between 66% and 34% of limit then,
+        # Crowd Status and Density Frequency will be as "Medium Dense Crowd" and "Medium", respectively
+        elif ((percentage1 < prediction_count <= percentage2)): 
+            # Color-code: Yellow
+            crowd_status = status[2]
+            crowd_freq = freq[1]
+        # If the count is less than 33% of limit then,
+        # Crowd Status and Density Frequency will be as "Sparse Crowd" and "Low", respectively
+        elif ((prediction_count <= percentage1)): 
+            # Color-code: Green
+            crowd_status = status[1]
+            crowd_freq = freq[0]    
+        else:
+            crowd_status = "Invalid"
+            crowd_freq = "Invalid"
 
     return crowd_status, crowd_freq
 
 # Endpoint for crowd density prediction
 @app.post('/predict')
 async def predict_crowd_density(file: UploadFile = File(...), threshold: int = Form(...)):
+    # Define the path to save the uploaded file
     file_path = os.path.join(UPLOAD_DIRECTORY, 'temp.jpg')
+    
+    # Write the content of the uploaded file to 'temp.jpg'
     with open(file_path, 'wb') as buffer:
         content = await file.read()
         buffer.write(content)
 
+    # Get the size of the uploaded image
     uploaded_image_size = get_image_size(file_path)
     target_image_size = uploaded_image_size
 
+    # Predict crowd density using the uploaded image
     count, img, hmap = predict(file_path, target_image_size)
     est_count = count
+    
+    # Determine crowd status and frequency based on threshold
     crowd_status, crowd_freq = frequency_status(count, threshold)
 
     # Generate and save heatmap image
@@ -153,7 +176,7 @@ async def predict_crowd_density(file: UploadFile = File(...), threshold: int = F
     plt.savefig(heatmap_path, bbox_inches='tight', pad_inches=0)
     plt.close()
 
-    # Prepare response data
+    # Prepare response data with estimated count, crowd status, frequency, and heatmap path
     response = {
         'estimatedCount': int(est_count),
         'crowdStatus': crowd_status,
@@ -162,6 +185,7 @@ async def predict_crowd_density(file: UploadFile = File(...), threshold: int = F
     }
 
     return response
+
 
 # Endpoint to serve uploaded files
 @app.get('/uploads/{filename}')
