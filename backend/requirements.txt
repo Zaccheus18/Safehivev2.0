@@ -1,0 +1,16 @@
+aiofiles
+Pillow==8.4.0
+numpy>=1.23.5,<2.0.0
+matplotlib==3.5.0
+keras==2.15.0
+fastapi==0.68.0
+uvicorn==0.15.0
+tensorflow==2.15.0  # or the version compatible with your Keras version
+protobuf>=3.20.3,<5.0.0
+python-multipart==0.0.5
+pip==23.3.1
+
+
+
+
+
