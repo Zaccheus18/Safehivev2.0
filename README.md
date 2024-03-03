@@ -36,7 +36,7 @@ Install dependencies
 Start the Front End
 
 ```bash
-  npm run start
+  npm run dev
 ```
 
 Start the Backend
