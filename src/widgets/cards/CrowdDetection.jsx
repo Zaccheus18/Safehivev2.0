@@ -222,7 +222,7 @@ return (
                 </>
               ) : (
                 // Button to try again
-                <Button className="mx-2 text-xs bg-blue-900" onClick={handleTryAgain}>
+                <Button className="mx-2 my-5 text-xs bg-blue-900" onClick={handleTryAgain}>
                   Try Again
                 </Button>
               )}
