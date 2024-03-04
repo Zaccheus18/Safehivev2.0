@@ -6,11 +6,11 @@ SafeHive is an innovative solution designed to enhance crowd management strategi
 
 ## Authors
 
-- [Mathew Adriane Briones](https://www.facebook.com/)
+- [Mathew Adriane Briones](https://www.facebook.com/mathew.briones.7)
 - [Frenchie Chua](https://www.facebook.com/Frenchiechua)
-- [Samuel Jeth Datiles](https://www.facebook.com/)
-- [Rhona Mae Taccad](https://www.facebook.com/)
-- [Areane Samontan](https://www.facebook.com/)
+- [Samuel Jeth Datiles](https://www.facebook.com/theaugustguy)
+- [Rhona Mae Taccad](https://www.facebook.com/rhonamae.xx?mibextid=ZbWKwL)
+- [Areane Samontan](https://www.facebook.com/areane.samontan?mibextid=LQQJ4d)
 
 
 ## Run Locally
