@@ -30,7 +30,7 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  npm install
+  npm install requirements.txt
 ```
 
 Start the Front End
@@ -42,6 +42,7 @@ Start the Front End
 Start the Backend
 
 ```bash
+  cd backend
   uvicorn app:app --reload
 ```
 
