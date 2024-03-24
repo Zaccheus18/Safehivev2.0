@@ -45,11 +45,15 @@ const contentStyle = {
 const getBorderStyle = (freq) => {
   let blinkingClass = '';
 
-  if (freq === "Low") {
+  if (freq === "Very Low") {
+    blinkingClass = "blink-green";
+  } else if (freq === "Low") {
     blinkingClass = "blink-green";
   } else if (freq === "Medium") {
     blinkingClass = "blink-yellow";
   } else if (freq === "High") {
+    blinkingClass = "blink-red";
+  } else if (freq === "Very High") {
     blinkingClass = "blink-red";
   }
 
@@ -61,13 +65,19 @@ const getMessageAndClass = (freq) => {
   let message = '';
   let blinkingClass = '';
 
-  if (freq === "Low") {
+  if (freq === "Very Low") {
+    message = "Analysis complete! The place is safe and not crowded.";
+    blinkingClass = "blink-green";
+  } else if (freq === "Low") {
     message = "Analysis complete! The place is safe and not crowded.";
     blinkingClass = "blink-green";
   } else if (freq === "Medium") {
     message = "Stay vigilant! The place is slightly crowded";
     blinkingClass = "blink-yellow";
   } else if (freq === "High") {
+    message = "Caution! The place is overcrowded and prone to stampede.";
+    blinkingClass = "blink-red";
+  } else if (freq === "Very High") {
     message = "Caution! The place is overcrowded and prone to stampede.";
     blinkingClass = "blink-red";
   }
