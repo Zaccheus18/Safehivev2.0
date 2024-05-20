@@ -124,7 +124,7 @@ def frequencyStatus(count, threshold): # CHANGED THE NAME AND FUNCTION BODY
 
 # If the count is equals to zero AND the limit is greater than 0 then,
     # Crowd Status and Density Frequency will be as "No Crowd" and "Very Low", respectively
-    if ((count == 0) and (threshold > 0)): 
+    if ((count == 0) or (threshold == 0)): 
         # Color-code: Green
         crowd_status = status[0]
         crowd_freq = freq[0]
