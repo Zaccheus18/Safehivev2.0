@@ -7,38 +7,30 @@ import {
 } from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
-// Style objects for header and paragraph
-const headerstyle = {
-  fontFamily: 'fraunces',
-};
-const paragraphstyle = {
-  fontFamily: 'Poppins',
-};
-
 // Array of team members with their details
 const members = [
   {
-    name: "Mathew Adriane Briones",
+    name: "Full Name",
     position: "Back-end Developer",
     image: "/img/T1.png",
   },
   {
-    name: "Frenchie Chua",
+    name: "Full Name",
     position: "Front-end Developer",
     image: "/img/T2.jpg",
   },
   {
-    name: "Samuel Jeth Datiles",
+    name: "Full Name",
     position: "Project Manager",
     image: "/img/T3.jpeg",
   },
   {
-    name: "Rhona Mae Taccad",
+    name: "Full Name",
     position: "Researcher",
     image: "/img/T4.jpg",
   },
   {
-    name: "Areane Samontan",
+    name: "Full Name",
     position: "Researcher",
     image: "/img/T5.jpg",
   },
@@ -46,28 +38,25 @@ const members = [
 
 export function About() {
   return (
-    <div className="mb-40 mt-20 px-4 lg:px-10">
-      <CardBody className="p-6 pb-5 pt-1">
+    <div className="relative bg-cover bg-center "  style={{ backgroundImage: "url('/img/2.png')" }}>
+      <CardBody className="relative z-10 -mt-40 flex flex-col text-white px-40 pb-20 pt-60 mx-40">
         {/* Introduction section */}
-        <Typography style={headerstyle} className="text-5xl font-bold mb-5 mt-20 text-center">About Us</Typography>
+        <h2 className="text-4xl font-bold mb-5 mt-20 text-center">RATIONALE</h2>
         <div className="mb-8">
           <div className="ml-5 mr-5 mb-8">
-            <Typography style={paragraphstyle} className="text-lg font-light text-justify mb-4">
-              At SafeHive, we are dedicated to revolutionizing crowd management and safety through 
-              cutting-edge technology and innovative solutions. Our mission is to provide event organizers, 
-              security personnel, and medical teams with a powerful deep learning-based crowd analysis system 
-              that ensures efficient and effective management of large-scale events.
-            </Typography>
-            <Typography style={paragraphstyle} className="text-lg font-light text-justify mb-4">
-              Using state-of-the-art technology, particularly the Congested Scene Recognition 
-              Network (CSRNet) model, SafeHive offers real-time crowd analysis, accurate crowd 
-              counting, and high-quality density map generation.
-            </Typography>
+            <p className="text-xl font-light text-justify mb-4">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+             when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+             It has survived not only five centuries, but also the leap into electronic typesetting, 
+             remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
+             sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
+             Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
           </div>
         </div>
 
-        {/* Team section */}
-        <Typography style={headerstyle} className="text-4xl font-bold mb-10 mt-20 text-center">MEET THE TEAM</Typography>
+        <h3 className="text-4xl font-bold mb-10 mt-20 text-center">AUTHORS</h3>
         
         <div className="flex flex-wrap justify-center">
           {/* Rendering team members */}
@@ -84,17 +73,51 @@ export function About() {
                 </CardHeader>
                 <CardBody>
                   {/* Member name and position */}
-                  <Typography style={headerstyle} className="text-lg font-bold mb-1 text-center">
+                  <h4 className="text-lg font-bold mb-1 text-center">
                     {member.name}
-                  </Typography>
-                  <Typography style={paragraphstyle} className="text-base font-light text-center">
+                  </h4>
+                  <p className="text-base font-light text-center">
                     {member.position}
-                  </Typography>
+                  </p>
                 </CardBody>
               </Card>
             </div>
           ))}
         </div>
+
+        {/* Sponsors */}
+        <h2 className="text-4xl font-bold mb-5 mt-20 text-center">SPONSORS</h2>
+        <div className="mb-8">
+          <div className="ml-5 mr-5 mb-8">
+            <p className="text-xl font-light text-justify mb-4">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+             when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+             It has survived not only five centuries, but also the leap into electronic typesetting, 
+             remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
+             sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
+             Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+          </div>
+        </div>
+
+        {/* Editor */}
+        <h2 className="text-4xl font-bold mb-5 mt-20 text-center">EDITOR</h2>
+        <div className="mb-8">
+          <div className="ml-5 mr-5 mb-8">
+            <p className="text-xl font-light text-justify mb-4">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+             when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+             It has survived not only five centuries, but also the leap into electronic typesetting, 
+             remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
+             sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
+             Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+          </div>
+        </div>
+
+
       </CardBody>
     </div>
   );

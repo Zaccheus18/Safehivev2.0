@@ -1,53 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { Home, About, Contact, NavigationBar, Footer } from '@/pages/dashboard';
+import { Home, About, Contact, Travelogue, Inspired_works, NavigationBar, Footer } from '@/pages/dashboard';
 import Favicon from 'react-favicon';
 
 const App = () => {
-  const [faviconUrl, setFaviconUrl] = useState('img/favicon.png'); // State for the favicon URL
-  const [currentPage, setCurrentPage] = useState(window.location.pathname); // State for the current page
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString()); // State for current time
+  const [faviconUrl, setFaviconUrl] = useState('img/favicon.png');
+  const [currentPage, setCurrentPage] = useState(window.location.pathname);
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString()); 
 
   useEffect(() => {
-    // Update current time every second
     const interval = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
 
-    // Clear interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
-  // Function to handle navigation changes
   const handleNavigation = (path) => {
     setCurrentPage(path);
-    // You can perform additional actions on navigation, like changing faviconUrl based on the page
-    // For example: setFaviconUrl(getFaviconUrlForPage(path));
   };
 
-  // Function to render different pages based on the current page state
   const renderPage = () => {
     switch (currentPage) {
-      case '/':
+      case '/home':
         return (
-          <div className="bg-custom-blue md:px-8">
+          <div className="">
             <Home />
           </div>
         );
       case '/about':
         return (
-          <div className="bg-custom-blue md:px-8">
+          <div className="">
             <About />
           </div>
         );
       case '/contact':
         return (
-          <div className="bg-custom-blue md:px-8">
+          <div className="">
             <Contact />
           </div>
         );
+        case '/travelogue':
+          return (
+            <div className="">
+              <Travelogue />
+            </div>
+          );
+        case '/inspired-works':
+          return (
+            <div className="">
+              <Inspired_works />
+            </div>
+          );
       default:
         return (
-          <div className="bg-custom-blue md:px-8">
+          <div className="">
             <Home />
           </div>
         );
@@ -56,18 +62,14 @@ const App = () => {
 
   return (
     <div className="relative z-10">
-      {/* Set favicon URL */}
       <Favicon url={faviconUrl} />
-      {/* Render navigation bar */}
       <NavigationBar
         currentTime={currentTime}
         handleNavigation={handleNavigation}
       />
 
-      {/* Render the current page */}
       {renderPage()}
 
-      {/* Render footer */}
       <Footer />
     </div>
   );

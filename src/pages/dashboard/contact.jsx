@@ -8,7 +8,6 @@ import {
 } from "@material-tailwind/react";
 import { DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
 import emailjs from '@emailjs/browser';
-import '../../../public/css/tailwind.css';
 
 export function Contact() {
   const formRef = useRef(null);
@@ -27,14 +26,6 @@ export function Contact() {
     };
   }, []);
 
-  const headerstyle = {
-    fontFamily: 'fraunces',
-  };
-
-  const paragraphstyle = {
-    fontFamily: 'Poppins',
-    fontWeight: 'bold', // Add fontWeight for bold text
-  };
 
   // Function to send an email using emailjs
   const sendEmail = (e) => {
@@ -61,13 +52,14 @@ export function Contact() {
   }
 
   return (
-    <div className="my-20 flex flex-col sm:px-8 md:px-16 lg:px-20 lg:flex-row lg:items-center justify-center lg:justify-between">
-      <CardBody className=" px-4 py-20 mt-4 mb-10 lg:flex lg:items-center lg:w-1/2">
+    <div className="relative bg-cover bg-center "  style={{ backgroundImage: "url('/img/contact.png')" }}>
+
+      <CardBody className="relative z-10 -mt-40 flex flex-col text-black px-20 pb-40 pt-80 mx-40 lg:w-1/2">
         <div className="w-full lg:pr-4">
           <div className="flex flex-col gap-2 bg-white bg-opacity-80 p-4 rounded-lg">
-            <Typography style={headerstyle} className="text-5xl font-bold mb-5 mt-3  flex whitespace-nowrap">Contact Us!</Typography>
+            <h3 className="text-5xl font-bold mb-5 mt-3  flex whitespace-nowrap">Contact Us!</h3>
             {/* Form for contacting */}
-            <form ref={formRef} style={paragraphstyle} className="text-lg contact-form" onSubmit={sendEmail}>
+            <form ref={formRef}className="text-lg contact-form" onSubmit={sendEmail}>
               <label>Name</label>
               <Input className="bg-gray-100" type="text" name="from_name" />
               <label>Email</label>
@@ -76,20 +68,12 @@ export function Contact() {
               <Input className="bg-gray-100" type="text" name="subject" />
               <label>Message</label>
               <Textarea className="bg-gray-100" name="message" />
-              <Button type="submit" className="bg-blue-900 mt-5" value="Send">Send Email</Button>
+              <button type="submit" className="bg-red-500 text-white mt-5" value="Send">Send Email</button>
             </form>
           </div>
         </div>
       </CardBody>
-      
-      <div className="lg:w-1/2 lg:pl-4 flex justify-center items-center hide">
-        <img
-          src="/img/contact.png"
-          alt="Contact Us Image"
-          className="w-1/2"
-          style={{ width: "60%" }}
-        />
-      </div>
+
     </div>
   );
 }

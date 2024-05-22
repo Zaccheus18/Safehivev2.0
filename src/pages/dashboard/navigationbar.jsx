@@ -9,77 +9,52 @@ export const NavigationBar = ({ currentTime, handleNavigation }) => {
   };
 
   return (
-    // Navigation bar layout using flexbox
-    <div className={`bg-color-white text-black p-4 pt-5 pb-5 flex flex-col lg:flex-row justify-between `}>
-      {/* Logo and current time displayed */}
-      <div className="flex items-center mb-4 lg:mb-0">
-        <button onClick={() => navigateTo('/')} className="cursor-pointer w-350 mr-5">
-          {/* Logo displayed as an Avatar */}
+    <nav className={`sticky top-0 z-50 px-20 bg-opacity-70 bg-white backdrop-filter backdrop-blur-lg flex flex-col lg:flex-row justify-between `}>
+      <div className="flex items-center ml-10">
+        <button onClick={() => navigateTo('/home')} className="cursor-pointer w-50 mr-5">
           <Avatar
             color="lightBlue"
             size="lg"
             src="/img/Logo.png"
             alt="Logo"
-            className='w-full'
+            className='w-full h-20'
           />
         </button>
-        {/* Current time displayed */}
-        <Typography variant="h6" color="black" className="font-semibold font-sans lg:hidden">
-          {currentTime}
-        </Typography>
       </div>
 
-      {/* List of navigation links for larger screens */}
-      <ul className="flex lg:flex-row lg:items-center lg:gap-2 lg:mr-auto">
+      <ul className="flex items-center justify-between space-x-10 mr-20 font-bold">
         <li>
           {/* Home button */}
-          <button onClick={() => navigateTo('/')} className="mb-2 lg:mb-0 ml-3 font-semibold ">
+          <button onClick={() => navigateTo('/home')} className="text-black text-lg px-3 py-2 rounded-lg hover:bg-neutral-200 transition duration-300">
             Home
           </button>
         </li>
         <li>
           {/* About button */}
-          <button onClick={() => navigateTo('/about')} className="mb-2 lg:mb-0 ml-10 font-semibold ">
+          <button onClick={() => navigateTo('/about')} className="text-black text-lg px-3 py-2 rounded-lg hover:bg-neutral-200 transition duration-300">
             About
           </button>
         </li>
         <li>
           {/* Contact button */}
-          <button onClick={() => navigateTo('/contact')} className="mb-2 lg:mb-0 ml-10 font-semibold ">
+          <button onClick={() => navigateTo('/contact')} className="text-black text-lg px-3 py-2 rounded-lg hover:bg-neutral-200 transition duration-300">
             Contact
           </button>
         </li>
-      </ul>
-
-      {/* Current time displayed for larger screens */}
-      <div className="hidden lg:flex items-center gap-2 text-lg font-bold">
-        <Typography variant="h5" color="black" className="font-semibold font-sans">
-          {currentTime}
-        </Typography>
-      </div>
-
-      {/* List of navigation links for larger screens */}
-      <ul className="hidden lg:flex-row lg:items-center gap-2">
         <li>
-          {/* Home button */}
-          <button onClick={() => navigateTo('/')} className="mb-2 lg:mb-0 mx-5 font-semibold ">
-            Home
+          {/* Travelogue button */}
+          <button onClick={() => navigateTo('/travelogue')} className="text-black text-lg px-3 py-2 rounded-lg hover:bg-neutral-200 transition duration-300">
+            Travelogue
           </button>
         </li>
         <li>
-          {/* About Us button */}
-          <button onClick={() => navigateTo('/about')} className="mb-2 lg:mb-0 mx-5 font-semibold ">
-            About Us
-          </button>
-        </li>
-        <li>
-          {/* Contact Us button */}
-          <button onClick={() => navigateTo('/contact')} className="mb-2 lg:mb-0 mx-5 font-semibold ">
-            Contact Us
+          {/* Inspired Works button */}
+          <button onClick={() => navigateTo('/inspired-works')} className="text-black  text-lg px-3 py-2 rounded-lg hover:bg-neutral-200 transition duration-300">
+            Inspired Works
           </button>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
